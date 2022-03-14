@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/back_card_ripple.xml" value="0.1215" />
+        <entry key="app/src/main/res/drawable/ic_blog_white.xml" value="0.1215" />
+        <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.1215" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_blogs.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/fragment_pictures.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/fragment_projects.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_social.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/header_main.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/item_nav_menu.xml" value="0.22" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.19270833333333334" />
       </map>
     </option>
   </component>

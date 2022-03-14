@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/blogsFragment">
+
+    <fragment
+        android:id="@+id/blogsFragment"
+        android:name="uz.hamroev.blogchik.fragment.BlogsFragment"
+        android:label="fragment_blogs"
+        tools:layout="@layout/fragment_blogs" >
+        <action
+            android:id="@+id/action_blogsFragment_to_picturesFragment"
+            app:destination="@id/picturesFragment" />
+        <action
+            android:id="@+id/action_blogsFragment_to_projectsFragment"
+            app:destination="@id/projectsFragment" />
+        <action
+            android:id="@+id/action_blogsFragment_to_socialFragment"
+            app:destination="@id/socialFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/picturesFragment"
+        android:name="uz.hamroev.blogchik.fragment.PicturesFragment"
+        android:label="fragment_pictures"
+        tools:layout="@layout/fragment_pictures" />
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="uz.hamroev.blogchik.fragment.ProjectsFragment"
+        android:label="fragment_projects"
+        tools:layout="@layout/fragment_projects" />
+    <fragment
+        android:id="@+id/socialFragment"
+        android:name="uz.hamroev.blogchik.fragment.SocialFragment"
+        android:label="fragment_social"
+        tools:layout="@layout/fragment_social" />
+</navigation>
