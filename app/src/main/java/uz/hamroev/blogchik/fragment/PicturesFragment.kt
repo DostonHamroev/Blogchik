@@ -1,11 +1,20 @@
 package uz.hamroev.blogchik.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import uz.hamroev.blogchik.R
+import androidx.fragment.app.Fragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import uz.hamroev.blogchik.adapters.PhotoAdapter
+import uz.hamroev.blogchik.databinding.FragmentPicturesBinding
+import uz.hamroev.blogchik.models.photos.Item
+import uz.hamroev.blogchik.models.photos.Photo
+import uz.hamroev.blogchik.retrofit.Common
+import uz.hamroev.blogchik.retrofit.RetrofitService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,12 +39,55 @@ class PicturesFragment : Fragment() {
         }
     }
 
+    lateinit var binding: FragmentPicturesBinding
+    private val TAG = "PicturesFragment"
+    lateinit var retrofitService: RetrofitService
+
+    lateinit var list: List<Item>
+    lateinit var photoAdapter: PhotoAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pictures, container, false)
+    ): View {
+        binding = FragmentPicturesBinding.inflate(layoutInflater, container, false)
+
+        retrofitService = Common.retrofitService
+        retrofitService.getPhotos().enqueue(object : Callback<Photo> {
+            override fun onResponse(call: Call<Photo>, response: Response<Photo>) {
+                if (response.isSuccessful) {
+                    if (response.body()?.ok == true) {
+                        binding.lottiEmpty.visibility = View.GONE
+                        binding.rvPictures.visibility = View.VISIBLE
+                        list = response.body()!!?.items
+                        loadData(list)
+
+                    } else {
+                        binding.rvPictures.visibility = View.GONE
+                        binding.lottiEmpty.visibility = View.VISIBLE
+
+                    }
+                    Log.d(TAG, "onResponse: ${response.body().toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Photo>, t: Throwable) {
+
+            }
+        })
+
+
+        return binding.root
+    }
+
+    private fun loadData(list: List<Item>) {
+        photoAdapter = PhotoAdapter(binding.root.context, list, object : PhotoAdapter.OnPhotoClickListener{
+            override fun OnClickPhoto(item: Item, position: Int) {
+
+            }
+
+        })
+        binding.rvPictures.adapter = photoAdapter
     }
 
     companion object {

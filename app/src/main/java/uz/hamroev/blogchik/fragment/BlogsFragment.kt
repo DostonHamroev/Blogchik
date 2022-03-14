@@ -1,11 +1,18 @@
 package uz.hamroev.blogchik.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import uz.hamroev.blogchik.R
+import androidx.fragment.app.Fragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import uz.hamroev.blogchik.databinding.FragmentBlogsBinding
+import uz.hamroev.blogchik.models.blogs.Blogs
+import uz.hamroev.blogchik.retrofit.Common
+import uz.hamroev.blogchik.retrofit.RetrofitService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,12 +37,30 @@ class BlogsFragment : Fragment() {
         }
     }
 
+    lateinit var binding: FragmentBlogsBinding
+    private val TAG = "BlogsFragment"
+    lateinit var retrofitService: RetrofitService
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blogs, container, false)
+    ): View {
+        binding = FragmentBlogsBinding.inflate(layoutInflater, container, false)
+
+        retrofitService = Common.retrofitService
+        retrofitService.getBlogs().enqueue(object : Callback<Blogs> {
+            override fun onResponse(call: Call<Blogs>, response: Response<Blogs>) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "onResponse: ${response.body().toString()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Blogs>, t: Throwable) {
+
+            }
+        })
+
+        return binding.root
     }
 
     companion object {

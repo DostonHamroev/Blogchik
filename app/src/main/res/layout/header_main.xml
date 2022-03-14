@@ -2,29 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:background="@color/dark"
+    android:layout_height="270dp"
+    android:background="#B31A1A1A"
     android:orientation="vertical">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:cardCornerRadius="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="40dp"
             app:cardElevation="5dp"
+            app:cardBackgroundColor="#B31A1A1A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:background="#B31A1A1A"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

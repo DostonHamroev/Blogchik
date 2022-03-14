@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:gravity="center"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/dark"
     tools:context=".fragment.BlogsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lotti_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_autoPlay="true"
+        app:lottie_speed="1"
+        android:layout_gravity="center"
+        app:lottie_repeatMode="restart"
+        app:lottie_loop="true"
+        app:lottie_fileName="boo.json"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_project"
+        android:overScrollMode="never"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/blogs"
-        android:textColor="@color/white"
-        android:textSize="50sp"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-</FrameLayout>
+
+
+</LinearLayout>

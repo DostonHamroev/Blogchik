@@ -118,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#801A1A1A"
+        android:background="#B31A1A1A"
         android:fitsSystemWindows="true">
 
         <LinearLayout
@@ -139,7 +139,7 @@
                     <include
                         layout="@layout/header_main"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp" />
+                        android:layout_height="270dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_nav"

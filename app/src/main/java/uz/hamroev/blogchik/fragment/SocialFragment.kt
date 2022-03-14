@@ -1,11 +1,22 @@
 package uz.hamroev.blogchik.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import uz.hamroev.blogchik.R
+import androidx.fragment.app.Fragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import uz.hamroev.blogchik.adapters.SocialAdapter
+import uz.hamroev.blogchik.databinding.FragmentSocialBinding
+import uz.hamroev.blogchik.models.social.Item
+import uz.hamroev.blogchik.models.social.Social
+import uz.hamroev.blogchik.retrofit.Common
+import uz.hamroev.blogchik.retrofit.RetrofitService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,12 +41,42 @@ class SocialFragment : Fragment() {
         }
     }
 
+    lateinit var binding: FragmentSocialBinding
+    lateinit var retrofitService: RetrofitService
+    lateinit var list: List<Item>
+    lateinit var socialAdapter: SocialAdapter
+
+    private  val TAG = "SocialFragment"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_social, container, false)
+    ): View {
+        binding = FragmentSocialBinding.inflate(layoutInflater, container, false)
+
+        retrofitService = Common.retrofitService
+        retrofitService.getSocials().enqueue(object : Callback<Social>{
+            override fun onResponse(call: Call<Social>, response: Response<Social>) {
+                if (response.isSuccessful){
+                    list = response.body()!!?.items
+                    socialAdapter = SocialAdapter(binding.root.context, list, object : SocialAdapter.OnSocialClickListener{
+                        override fun onCLick(item: Item, position: Int) {
+                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.url)))
+                        }
+
+                    })
+                    binding.rvSocial.adapter = socialAdapter
+                    Log.d(TAG, "onResponse: ${response.body().toString()}")
+                    Log.d(TAG, "onResponse: ${response.body()?.items}")
+                }
+            }
+
+            override fun onFailure(call: Call<Social>, t: Throwable) {
+                
+            }
+        })
+
+        return binding.root
     }
 
     companion object {
