@@ -1,5 +1,6 @@
 package uz.hamroev.blogchik.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import androidx.fragment.app.Fragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uz.hamroev.blogchik.activity.ZoomActivity
 import uz.hamroev.blogchik.adapters.PhotoAdapter
+import uz.hamroev.blogchik.cache.Cache
 import uz.hamroev.blogchik.databinding.FragmentPicturesBinding
 import uz.hamroev.blogchik.models.photos.Item
 import uz.hamroev.blogchik.models.photos.Photo
@@ -81,12 +84,16 @@ class PicturesFragment : Fragment() {
     }
 
     private fun loadData(list: List<Item>) {
-        photoAdapter = PhotoAdapter(binding.root.context, list, object : PhotoAdapter.OnPhotoClickListener{
-            override fun OnClickPhoto(item: Item, position: Int) {
+        photoAdapter =
+            PhotoAdapter(binding.root.context, list, object : PhotoAdapter.OnPhotoClickListener {
+                override fun OnClickPhoto(item: Item, position: Int) {
+                    Cache.imageTitle = list[position].title
+                    Cache.imageDate = list[position].date
+                    Cache.zoomUrl = list[position].url
+                    startActivity(Intent(binding.root.context, ZoomActivity::class.java))
+                }
 
-            }
-
-        })
+            })
         binding.rvPictures.adapter = photoAdapter
     }
 

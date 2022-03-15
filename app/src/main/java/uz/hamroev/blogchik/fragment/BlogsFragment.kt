@@ -1,7 +1,6 @@
 package uz.hamroev.blogchik.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,10 @@ import androidx.fragment.app.Fragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uz.hamroev.blogchik.adapters.BlogAdapter
 import uz.hamroev.blogchik.databinding.FragmentBlogsBinding
 import uz.hamroev.blogchik.models.blogs.Blogs
+import uz.hamroev.blogchik.models.blogs.Item
 import uz.hamroev.blogchik.retrofit.Common
 import uz.hamroev.blogchik.retrofit.RetrofitService
 
@@ -41,6 +42,9 @@ class BlogsFragment : Fragment() {
     private val TAG = "BlogsFragment"
     lateinit var retrofitService: RetrofitService
 
+    lateinit var list: List<Item>
+    lateinit var blogAdapter: BlogAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +55,16 @@ class BlogsFragment : Fragment() {
         retrofitService.getBlogs().enqueue(object : Callback<Blogs> {
             override fun onResponse(call: Call<Blogs>, response: Response<Blogs>) {
                 if (response.isSuccessful) {
-                    Log.d(TAG, "onResponse: ${response.body().toString()}")
+
+                    if (response.body()!!.ok) {
+                        binding.lottiEmpty.visibility = View.GONE
+                        binding.rvBlogs.visibility = View.VISIBLE
+                        list = response.body()!!.items
+                        loadBlogs(list)
+                    } else {
+                        binding.lottiEmpty.visibility = View.VISIBLE
+                        binding.rvBlogs.visibility = View.GONE
+                    }
                 }
             }
 
@@ -61,6 +74,17 @@ class BlogsFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun loadBlogs(list: List<Item>) {
+
+        blogAdapter =
+            BlogAdapter(binding.root.context, list, object : BlogAdapter.OnBlogClickListener {
+                override fun onClick(item: Item, position: Int) {
+
+                }
+            })
+        binding.rvBlogs.adapter = blogAdapter
     }
 
     companion object {

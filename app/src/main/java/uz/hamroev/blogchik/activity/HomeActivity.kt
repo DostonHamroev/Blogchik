@@ -13,6 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.Navigation
 import uz.hamroev.blogchik.R
 import uz.hamroev.blogchik.adapters.NavMenuAdapter
+import uz.hamroev.blogchik.cache.Cache
 import uz.hamroev.blogchik.databinding.ActivityHomeBinding
 import uz.hamroev.blogchik.models.NavMenu
 
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Cache.init(this)
 
         val navController = Navigation.findNavController(this, R.id.my_nav_host_fragment)
 

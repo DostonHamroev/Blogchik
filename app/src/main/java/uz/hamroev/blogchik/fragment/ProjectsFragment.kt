@@ -1,7 +1,6 @@
 package uz.hamroev.blogchik.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,9 @@ import androidx.fragment.app.Fragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uz.hamroev.blogchik.adapters.ProjectAdapter
 import uz.hamroev.blogchik.databinding.FragmentProjectsBinding
+import uz.hamroev.blogchik.models.projects.Item
 import uz.hamroev.blogchik.models.projects.Projects
 import uz.hamroev.blogchik.retrofit.Common
 import uz.hamroev.blogchik.retrofit.RetrofitService
@@ -39,8 +40,11 @@ class ProjectsFragment : Fragment() {
 
 
     lateinit var binding: FragmentProjectsBinding
-    private  val TAG = "ProjectsFragment"
+    private val TAG = "ProjectsFragment"
     lateinit var retrofitService: RetrofitService
+
+    lateinit var list: List<Item>
+    lateinit var projectAdapter: ProjectAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +56,15 @@ class ProjectsFragment : Fragment() {
         retrofitService.getProjects().enqueue(object : Callback<Projects> {
             override fun onResponse(call: Call<Projects>, response: Response<Projects>) {
                 if (response.isSuccessful) {
-                    Log.d(TAG, "onResponse: ${response.body().toString()}")
+                    if (response.body()!!.ok) {
+                        binding.lottiEmpty.visibility = View.GONE
+                        binding.rvProject.visibility = View.VISIBLE
+                        list = response.body()!!.items
+                        loadProjects(list)
+                    } else {
+                        binding.lottiEmpty.visibility = View.VISIBLE
+                        binding.rvProject.visibility = View.GONE
+                    }
                 }
             }
 
@@ -63,6 +75,18 @@ class ProjectsFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun loadProjects(list: List<Item>) {
+        projectAdapter = ProjectAdapter(
+            binding.root.context,
+            list,
+            object : ProjectAdapter.OnProjectClickListener {
+                override fun onClick(item: Item, position: Int) {
+
+                }
+            })
+        binding.rvProject.adapter = projectAdapter
     }
 
     companion object {
