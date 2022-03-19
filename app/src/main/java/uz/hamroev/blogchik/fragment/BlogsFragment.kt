@@ -1,5 +1,6 @@
 package uz.hamroev.blogchik.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,9 @@ import androidx.fragment.app.Fragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uz.hamroev.blogchik.activity.BlogActivity
 import uz.hamroev.blogchik.adapters.BlogAdapter
+import uz.hamroev.blogchik.cache.Cache
 import uz.hamroev.blogchik.databinding.FragmentBlogsBinding
 import uz.hamroev.blogchik.models.blogs.Blogs
 import uz.hamroev.blogchik.models.blogs.Item
@@ -81,7 +84,9 @@ class BlogsFragment : Fragment() {
         blogAdapter =
             BlogAdapter(binding.root.context, list, object : BlogAdapter.OnBlogClickListener {
                 override fun onClick(item: Item, position: Int) {
-
+                    Cache.blogHTML = list[position].body
+                    Cache.blogID = list[position].id
+                    startActivity(Intent(binding.root.context, BlogActivity::class.java))
                 }
             })
         binding.rvBlogs.adapter = blogAdapter

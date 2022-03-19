@@ -1,5 +1,7 @@
 package uz.hamroev.blogchik.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,7 +85,7 @@ class ProjectsFragment : Fragment() {
             list,
             object : ProjectAdapter.OnProjectClickListener {
                 override fun onClick(item: Item, position: Int) {
-
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.url)))
                 }
             })
         binding.rvProject.adapter = projectAdapter

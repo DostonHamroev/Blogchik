@@ -7,8 +7,11 @@
         <entry key="app/src/main/res/drawable/back_card_social.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_blog_white.xml" value="0.1215" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.1215" />
+        <entry key="app/src/main/res/layout/activity_blog.xml" value="0.15818725951261223" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/activity_no_internet.xml" value="0.14" />
+        <entry key="app/src/main/res/layout/activity_project.xml" value="0.15818725951261223" />
         <entry key="app/src/main/res/layout/activity_zoom.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_blogs.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_pictures.xml" value="0.19270833333333334" />

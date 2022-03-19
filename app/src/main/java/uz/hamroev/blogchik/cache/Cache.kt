@@ -54,4 +54,23 @@ object Cache {
         }
 
 
+    var blogHTML: String?
+        get() = sharedPreferences.getString("bloghtml", "0")
+        set(value) = sharedPreferences.edit() {
+            if (value != null) {
+                it.putString("bloghtml", value)
+            }
+        }
+
+    var blogID: String?
+        get() = sharedPreferences.getString("blogid", "0")
+        set(value) = sharedPreferences.edit() {
+            if (value != null) {
+                it.putString("blogid", value)
+            }
+        }
+
+
+
+
 }
